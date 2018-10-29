@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<h1 align="center">product details</h1>
+<body bgcolor="#6a5acd">
+     <form action="/savedata/" method="POST">
+         {% csrf_token %}
+<table align="center">
+    <tr>
+        <td><input type="number" placeholder="product number" name="t1" value="{{ key }}"></td>
+    </tr>
+    <tr>
+        <td><input type="text" placeholder="product name" name="t2" value="{{ name }}"></td>
+    </tr>
+    <tr>
+        <td><input type="number" placeholder="product price" value="{{ price }}" name="t3"></td>
+    </tr>
+    <tr>
+        <td><input type="submit" value="send"></td>
+    </tr>
+</table>
+         <table align="center" border="2" >
+             <tr width="100">
+                 <th>produc number</th>
+                 <th>product name</th>
+                 <th>product price</th>
+                 <th>update</th>
+                 <th>delete</th>
+             </tr>
+             {% for x,y in data.items %}
+                 <tr>
+                 <td>{{ x }}</td>
+                 <td>
+                     {{ y.name }}
+                 </td>
+                 <td>{{ y.price }}</td>
+                 <td>
+                     <a href="/update/?update={{ x }}">
+                            Update
+                 </td>
+
+                 <form action="/delete/" method="post">
+                     {% csrf_token %}
+                 <td>
+                     <input type="submit" value="Delete">
+                            <input type="hidden" value="{{ x }}" name="d1">
+                 </td>
+                     </form>
+
+                 </tr>
+             {% endfor  %}
+
+
+         </table>
+</form>
+</body>
+</html>
